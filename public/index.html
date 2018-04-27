@@ -1,83 +1,173 @@
 <!doctype html>
 <html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
-        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-                
-        <style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+    <style>
+        :root {
+            --jumbotron-padding-y: 3rem;
+        }
 
-        </style>
-    </head>
-    <body>
-        <br />
-        <!-- Add your site or application content here -->
-        <form id="form">
-            <div class="form-group col-sm-4 col-sm-offset-4">
-                <img src="muh-flex.jpg" style="width:330px" />
-                <h2>Contact me about domain:</h2>
-                <textarea name="msg" id="msg" placeholder="Type your message and contact info." class="form-control"></textarea>
-                <button type="button" onclick="it.send()" class="btn btn-primary form-control">Send</button>
-            </div>
-        </form>
-        <h3 id="success" class="col-sm-4 col-sm-offset-4" style="display:none">Thanks!</h3>
-        <code class="col-sm-4 col-sm-offset-4" id="debug"></code>
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.9.0.min.js"></script>
-        <script>
-            var it = it || {};
-            
+        .jumbotron {
+            padding-top: var(--jumbotron-padding-y);
+            padding-bottom: var(--jumbotron-padding-y);
+            margin-bottom: 0;
+            background-color: #fff;
+        }
 
-            it.send = function(){
-                AWS.config.region = 'us-east-1'; // Region
-                AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                    IdentityPoolId: 'us-east-1:6459ce9d-d22f-4737-a7ed-e50260fb0b02',
-                });
-
-                var sns = new AWS.SNS();
-                var params = {
-                    Message: $('#msg').val(),
-                    Subject: it.domain + ': Message',
-                    TopicArn: 'arn:aws:sns:us-east-1:205705535084:contactLiam'
-                }
-
-                sns.publish(params, function(err, data) {
-                    if (err){
-                        $('#debug').append("Sorry there was an error!");
-                    }
-                    else{
-                        $('#form').toggle();
-                        $('#success').toggle();
-                    }
-                });
+        @media (min-width: 768px) {
+            .jumbotron {
+                padding-top: calc(var(--jumbotron-padding-y) * 2);
+                padding-bottom: calc(var(--jumbotron-padding-y) * 2);
             }
+        }
 
-            $(function(){
-                it.domain = location.hostname;
-                document.title = it.domain;
-            });
+        .jumbotron p:last-child {
+            margin-bottom: 0;
+        }
 
-        </script>
-        <div align="center">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- footer -->
-                <ins class="adsbygoogle"
-                    style="display:inline-block;width:728px;height:90px;padding-top:50px;"
-                    data-ad-client="ca-pub-1959770337533652"
-                    data-ad-slot="8799510763"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+        .jumbotron-heading {
+            font-weight: 300;
+        }
+
+        .jumbotron .container {
+            max-width: 40rem;
+        }
+
+        footer {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        footer p {
+            margin-bottom: .25rem;
+        }
+
+        .box-shadow {
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="bg-dark" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+                        <h4 class="text-white">Leslie K. Worthington</h4>
+                        <div class="text-muted">Making teaching great again.</div>
+                    </div>
+                    <div class="col-sm-4 offset-md-1 py-4">
+                        <a href="mailto:lkworthington@gmail.com">
+                            <h4 class="text-white">Contact</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </body>
+
+    </header>
+    <main>
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Teacher Blog</h1>
+                <div class="lead text-muted">This is a blog to chronicle my teaching journey. Make sure to scroll down to see pictures of my work!</div>
+                <!--p>
+                <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+                </p-->
+            </div>
+        </section>
+        <div class="container">
+            <h2>IMAGINE…A FUN GEOGRAPHY LESSON THAT SPANS THE AGES!</h2>
+            <p>As part of my Master of Education, I had to create a terrain model. That is a hands-on model of a mountain range
+                that gently flows into the plains and finally a coastline. I made it out of Plasticine clay and it weighs
+                about 25lbs (that’s a lot of clay!), but it has made learning geography a blast for my students.</p>
+            <p>I have used this with kids as young as two years old up to 2nd grade so far. Obviously, I adjust the lessons
+                for the different age groups. Since it is made out of a special oil-based clay, I can actually set the model
+                in a bin (I use an old clear sweater box) and have the kids flood the box. They can pour water over it to
+                mimic rain and wait the river system in action! It is also great for helping with geographical location.
+                This could be a fun lesson for map-making too.</p>
+            <p>The options are endless with hands-on activities!</p>
+            <h2>GLITTER BOTTLES!</h2>
+            <p>
+                During our recycling unit, the kids each brought in a bottle from home so they could make their own glitter bottles. The
+                project was fun, simple and the kids loved their end products.
+            </p>
+            <p>They counted out 5 pom-poms for each bottle and used their fine-motor strength to push them into the bottles.
+                Then they pinched up confetti and poured it through a funnel into the bottles. The next step involved their
+                carrying their bottles to the sink and filling them with water. A few squirts of food color, and they were
+                almost finished! Finally, they poured glitter through the funnel to complete the project!</p>
+            <p>This was a great project that touched on math, honed fine motor skills and definitely encouraged a lot of conversation!</p>
+            <h2>WEEK OF THE YOUNG CHILD</h2>
+            <p>My class was selected to participate in this year’s NAEYC’s “Week of the Young Child” for my current program.
+                The theme this year was “celebrating our youngest learners”. The requirements stated that it must be an art
+                project as it would be hanging in the main site’s art gallery through the beginning of May. I had so many
+                ideas, but I knew ultimately, I both wanted and needed this to be completely the children’s creation.</p>
+            <p>Paint was the best medium as my kids LOVE painting, but I wanted it to be more than just paint on a canvas. Who
+                better than to help come up with creative ideas than the kids themselves! Sitting on the rug, we had a discussion
+                about how to manipulate the medium. I asked questions like, “What could we do to change the paint?” and “Is
+                there anything in the classroom we could add to the paint so it looks or feels different?” The responses
+                were amazing, and I ended up having the class vote because we did not have a canvas large enough for all
+                their ideas.</p>
+            <p>One little girl said, “We could put sand in it!” To which I asked, “Oh, I wonder how that would feel? Do you
+                think it would be smooth?” She happily said, “No, rough!”</p>
+            <p>Another child had the idea to paint with string! One very energetic young boy motioned flinging the paint as
+                he said, “We could paint like this”. Other ideas were spray bottle painting, which was happened upon when
+                a kid noticed an empty spray bottle near the easel; foil painting, and tissue painting.</p>
+            <p>We needed 6 sections so kids volunteered to help “tape off” the canvas. Then the painting began. Every aspect
+                of this project was done by the kids. They selected the colors they wanted, they poured the paint into the
+                spray bottles, they mixed the sand and glitter into the paint. It was 100% a child-centered project created
+                by young learners! Perfect for the gallery.</p>
+        </div>
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row" id="imgContainer">
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script src="js/app.js"></script>
+
+    <div align="center">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- footer -->
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;padding-top:50px;" data-ad-client="ca-pub-1959770337533652"
+            data-ad-slot="8799510763"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
+            </p>
+            <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+            <p>New to Bootstrap?
+                <a href="../../">Visit the homepage</a> or read our
+                <a href="../../getting-started/">getting started guide</a>.</p>
+        </div>
+    </footer>
+</body>
+
 </html>
