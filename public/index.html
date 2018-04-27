@@ -1,0 +1,83 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+                
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <br />
+        <!-- Add your site or application content here -->
+        <form id="form">
+            <div class="form-group col-sm-4 col-sm-offset-4">
+                <img src="muh-flex.jpg" style="width:330px" />
+                <h2>Contact me about domain:</h2>
+                <textarea name="msg" id="msg" placeholder="Type your message and contact info." class="form-control"></textarea>
+                <button type="button" onclick="it.send()" class="btn btn-primary form-control">Send</button>
+            </div>
+        </form>
+        <h3 id="success" class="col-sm-4 col-sm-offset-4" style="display:none">Thanks!</h3>
+        <code class="col-sm-4 col-sm-offset-4" id="debug"></code>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.9.0.min.js"></script>
+        <script>
+            var it = it || {};
+            
+
+            it.send = function(){
+                AWS.config.region = 'us-east-1'; // Region
+                AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                    IdentityPoolId: 'us-east-1:6459ce9d-d22f-4737-a7ed-e50260fb0b02',
+                });
+
+                var sns = new AWS.SNS();
+                var params = {
+                    Message: $('#msg').val(),
+                    Subject: it.domain + ': Message',
+                    TopicArn: 'arn:aws:sns:us-east-1:205705535084:contactLiam'
+                }
+
+                sns.publish(params, function(err, data) {
+                    if (err){
+                        $('#debug').append("Sorry there was an error!");
+                    }
+                    else{
+                        $('#form').toggle();
+                        $('#success').toggle();
+                    }
+                });
+            }
+
+            $(function(){
+                it.domain = location.hostname;
+                document.title = it.domain;
+            });
+
+        </script>
+        <div align="center">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- footer -->
+                <ins class="adsbygoogle"
+                    style="display:inline-block;width:728px;height:90px;padding-top:50px;"
+                    data-ad-client="ca-pub-1959770337533652"
+                    data-ad-slot="8799510763"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </body>
+</html>
