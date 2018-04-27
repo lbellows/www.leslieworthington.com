@@ -1,15 +1,15 @@
 $(function(){
   
   //query '../img/
+  var imgData = '../imgData.json';
   var imageFolder = "../img/";
 
   //add images to dom
-  $.get(imageFolder).then(function(data) {
-
-      $(data).find("a").attr("href", function (i, imgSrc) {
-          if (imgSrc && imgSrc.match(/\.(jpe?g|png|gif)$/gi)) {
-
-              var template = 
+  $.get(imgData).then(function(data) {
+    var dataobj = JSON.parse(data);
+    dataobj.forEach(imgName => {
+      var imgSrc = imageFolder + imgName
+      var template = 
 `
 <div class="col-md-4">
   <div class="card mb-4 box-shadow">
@@ -20,10 +20,9 @@ $(function(){
     </div>
   </div>
 </div>`;
-              $("#imgContainer").append(template);
-          }
 
-      });
+      $("#imgContainer").append(template);
+  
+    });
   });
-
 })
