@@ -3,6 +3,9 @@ $(function(){
   var imgData = '../imgData.json';
   var imageFolder = "../img/";
 
+  var curDate = new Date();
+  $('#curYear').text(curDate.getUTCFullYear());
+  
   //add images to dom
   $.get(imgData).then(function(data) {
     if(typeof data != "object")
